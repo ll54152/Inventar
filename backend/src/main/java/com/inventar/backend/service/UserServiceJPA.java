@@ -12,7 +12,13 @@ public class UserServiceJPA {
     @Autowired
     private UserRepo userRepo;
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public UserServiceJPA(UserRepo userRepo, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepo = userRepo;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     public User save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -20,7 +26,7 @@ public class UserServiceJPA {
     }
 
     public User findByEmail(String email) {
-        return userRepo.findByEmail(email).orElseThrow(() -> null);
+        return userRepo.findByEmail(email).orElse(null);
     }
 
     public boolean checkPassword(String password, User oldUser) {
