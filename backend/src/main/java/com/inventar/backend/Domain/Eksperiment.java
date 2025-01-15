@@ -29,4 +29,89 @@ public class Eksperiment {
 
     @OneToMany(mappedBy = "eksperiment")
     private List<Log> logs;
+
+    public Eksperiment(String name, String field, String subject, String description, String materials) {
+        // Konstruktor koji ne prime logove niti komponente jer se one dodaju naknadno
+        this.name = name;
+        this.field = field;
+        this.subject = subject;
+        this.description = description;
+        this.materials = materials;
+    }
+
+    public Eksperiment() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Files> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Files> files) {
+        this.files = files;
+    }
+
+    public List<Komponenta> getKomponente() {
+        return komponente;
+    }
+
+    public void setKomponente(List<Komponenta> komponente) {
+        this.komponente = komponente;
+    }
+
+    public String getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(String materials) {
+        this.materials = materials;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
+    }
 }

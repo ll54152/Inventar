@@ -24,5 +24,68 @@ public class Log {
 
     private LocalDateTime timestamp;
 
-    //private User user;
+    //ToDo: private User user;
+
+
+    public Log() {
+    }
+
+    public Log(String note, LocalDateTime timestamp) {
+        this.note = note;
+        this.timestamp = timestamp;
+    }
+
+    public Log(Eksperiment eksperiment, String note, LocalDateTime timestamp) {
+        // Konstruktor za eksperiment
+        this.eksperiment = eksperiment;
+        this.note = note;
+        this.timestamp = timestamp;
+    }
+
+    public Log(Komponenta komponenta, String note, LocalDateTime timestamp) {
+        // Konstruktor za komponentu
+        this.komponenta = komponenta;
+        this.note = note;
+        this.timestamp = timestamp;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Komponenta getKomponenta() {
+        return komponenta;
+    }
+
+    public void setKomponenta(Komponenta komponenta) {
+        this.komponenta = komponenta;
+    }
+
+    public Eksperiment getEksperiment() {
+        return eksperiment;
+    }
+
+    public void setEksperiment(Eksperiment eksperiment) {
+        this.eksperiment = eksperiment;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }
