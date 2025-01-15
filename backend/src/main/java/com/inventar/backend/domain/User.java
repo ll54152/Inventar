@@ -1,4 +1,4 @@
-package com.inventar.backend.Domain;
+package com.inventar.backend.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
