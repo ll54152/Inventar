@@ -1,7 +1,7 @@
-package com.inventar.backend.Service;
+package com.inventar.backend.service;
 
-import com.inventar.backend.Domain.*;
-import com.inventar.backend.Repo.*;
+import com.inventar.backend.domain.*;
+import com.inventar.backend.repo.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
