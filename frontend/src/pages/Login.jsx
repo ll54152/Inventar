@@ -23,17 +23,26 @@ function Login() {
             });
 
             if (response.ok) {
-                const data = await response.json(); // Backend može vratiti token ili poruku
-                console.log("Login successful:", data);
-                // Preusmeravanje na glavnu stranicu
-                navigate("/mainpage");
+                const contentType = response.headers.get("Content-Type");
+                if (contentType && contentType.includes("application/json")) {
+                    const data = await response.json();
+                    console.log("Login successful:", data);
+                    navigate("/mainpage");
+                } else if (contentType && contentType.includes("text/plain")) {
+                    const data = await response.text();
+                    console.log("Login successful:", data);
+                    navigate("/mainpage");
+                } else {
+                    console.error("Unexpected response format:", contentType);
+                    alert("Unexpected response format.");
+                }
             } else {
                 const error = await response.text();
-                alert(`Greška: ${error}`);
+                alert(`Error: ${error}`);
             }
         } catch (error) {
             console.error("Error during login:", error);
-            alert("Došlo je do greške.");
+            alert("An error occurred.");
         }
     };
 

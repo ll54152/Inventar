@@ -3,6 +3,7 @@ package com.inventar.backend.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+//ToDo: Dodaj Ime i Prezime Usera
 @Entity
 @Table(name = "users")
 public class User {
