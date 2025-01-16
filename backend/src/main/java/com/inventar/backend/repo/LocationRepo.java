@@ -10,5 +10,7 @@ public interface LocationRepo extends JpaRepository<Location, Long> {
 
     Optional<Location> findByRoom(String room);
 
+    Optional<Location> findById(Long id);
+
     List<Location> findAll();
 }

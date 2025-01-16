@@ -17,6 +17,10 @@ public class LocationServiceJPA {
         return locationRepo.save(location);
     }
 
+    public Location findById(Long id) {
+        return locationRepo.findById(id).orElse(null);
+    }
+
     public Location findByAdress(String adress) {
         return locationRepo.findByAdress(adress).orElse(null);
     }
