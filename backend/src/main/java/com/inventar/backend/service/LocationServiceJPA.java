@@ -5,6 +5,8 @@ import com.inventar.backend.repo.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import java.util.*;
+
 @Service
 public class LocationServiceJPA {
 
@@ -13,5 +15,17 @@ public class LocationServiceJPA {
 
     public Location save(Location location) {
         return locationRepo.save(location);
+    }
+
+    public Location findByAdress(String adress) {
+        return locationRepo.findByAdress(adress).orElse(null);
+    }
+
+    public Location findByRoom(String room) {
+        return locationRepo.findByRoom(room).orElse(null);
+    }
+
+    public List<Location> findAll() {
+        return locationRepo.findAll();
     }
 }
