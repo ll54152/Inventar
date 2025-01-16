@@ -116,6 +116,8 @@ function Komponenteunos() {
           
         </form>
       </CardContent>
+      <Button className="m-5 bg-pink-500 text-white">Završi</Button>
+                      
     </Card>
   );
 }
