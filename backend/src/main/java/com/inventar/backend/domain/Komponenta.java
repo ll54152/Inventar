@@ -13,9 +13,9 @@ public class Komponenta {
 
     private String name;    //Naziv
 
-    private String ZPF; //Interna oznaka ZPF; XXYYY
+    private String zpf; //Interna oznaka ZPF; XXYYY
 
-    private String FER; //Interna oznaka FER; Active;Inactive;Unknown
+    private String fer; //Interna oznaka FER; Active;Inactive;Unknown
 
     private int quantity;   //Kolicina
 
@@ -42,22 +42,22 @@ public class Komponenta {
     public Komponenta() {
     }
 
-    public Komponenta(String name, String ZPF, String FER, int quantity, String description, Location location, List<Eksperiment> eksperimenti) {
+    public Komponenta(String name, String zpf, String fer, int quantity, String description, Location location, List<Eksperiment> eksperimenti) {
         // Konstruktor sa eksperimentom
         this.name = name;
-        this.ZPF = ZPF;
-        this.FER = FER;
+        this.zpf = zpf;
+        this.fer = fer;
         this.quantity = quantity;
         this.description = description;
         this.location = location;
         this.eksperimenti = eksperimenti;
     }
 
-    public Komponenta(String name, String ZPF, String FER, int quantity, String description, Location location) {
+    public Komponenta(String name, String zpf, String fer, int quantity, String description, Location location) {
         // Konstruktor bez eksperimenta
         this.name = name;
-        this.ZPF = ZPF;
-        this.FER = FER;
+        this.zpf = zpf;
+        this.fer = fer;
         this.quantity = quantity;
         this.description = description;
         this.location = location;
@@ -79,20 +79,20 @@ public class Komponenta {
         this.name = name;
     }
 
-    public String getZPF() {
-        return ZPF;
+    public String getZpf() {
+        return zpf;
     }
 
-    public void setZPF(String ZPF) {
-        this.ZPF = ZPF;
+    public void setZpf(String zpf) {
+        this.zpf = zpf;
     }
 
-    public String getFER() {
-        return FER;
+    public String getFer() {
+        return fer;
     }
 
-    public void setFER(String FER) {
-        this.FER = FER;
+    public void setFer(String fer) {
+        this.fer = fer;
     }
 
     public int getQuantity() {
