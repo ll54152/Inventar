@@ -19,6 +19,9 @@ public class Komponenta {
 
     private int quantity;   //Kolicina
 
+    @ManyToOne
+    private Location location;
+
     @Column(columnDefinition = "TEXT")
     private String description; //Kratak opis
 
@@ -27,9 +30,6 @@ public class Komponenta {
 
     @OneToMany(mappedBy = "komponenta")
     private List<Files> files;   //Jedna komponenta može imati više fajlova
-
-    @ManyToOne
-    private Location location;
 
     @ManyToMany
     @JoinTable(
