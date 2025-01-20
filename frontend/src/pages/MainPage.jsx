@@ -44,12 +44,14 @@ export default function CarouselSize() {
           
           <CarouselItem  className="md:basis-1/2 lg:basis-1/4">
             <div className="p-1">
+            <Link to="/komponente">
               <Card className="hover:bg-pink-500 hover:text-white transition duration-300">
                 <CardContent className="flex aspect-square items-center justify-center p-6">
                   <span className="text-3xl font-bold">Komponente</span>
                 </CardContent>
                 
               </Card>
+              </Link>
             </div>
           </CarouselItem>
 

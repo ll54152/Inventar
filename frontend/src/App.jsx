@@ -8,6 +8,7 @@ import Experimenti from './pages/Experimenti';
 import Experimentiprimjer from './pages/Experimentiprimjer';
 import Komponenteprimjer from './pages/Komponenteprimjer';
 import Komponenteunos from './pages/Komponenteunos';
+import Komponente from './pages/Komponente';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Komponenteprimjer" element={<Komponenteprimjer/>} />
         <Route path="/Experimentunos" element={<Experimentunos/>} />
         <Route path="/Komponenteunos" element={<Komponenteunos/>} />
+        <Route path="/Komponente" element={<Komponente/>} />
       
       </Routes>
       </BrowserRouter>

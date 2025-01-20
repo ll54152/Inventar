@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,21 +16,21 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
 
 function Komponenteunos() {
-  const [components, setComponents] = useState([]);
+  const [componentName, setComponentName] = useState("");
+  const navigate = useNavigate();
 
-  // Add a new component
-  const addComponent = (e) => {
-    e.preventDefault(); // Prevent form submission
-    setComponents([...components, ""]);
+  const handleSaveComponent = () => {
+    const storedComponents = JSON.parse(localStorage.getItem("components")) || [];
+    const newComponent = {
+      id: storedComponents.length + 1,
+      name: componentName,
+    };
+
+    storedComponents.push(newComponent);
+    localStorage.setItem("components", JSON.stringify(storedComponents));
+    alert("Nova komponenta je dodana");
+    navigate("/komponente");
   };
-
-  // Update component input
-  const updateComponent = (index, value) => {
-    const updatedComponents = [...components];
-    updatedComponents[index] = value;
-    setComponents(updatedComponents);
-  };
-
   return (
     <Card className="w-[75vw] h-[160vh]"
     style={{
@@ -43,7 +44,8 @@ function Komponenteunos() {
           Naziv komponente
         </CardTitle>
         <div className="flex flex-col space-y-1.5">
-          <Input id="nazivkomponente" placeholder="Unesite naziv komponente" />
+          <Input id="nazivkomponente" placeholder="Unesite naziv komponente"  value={componentName}
+            onChange={(e) => setComponentName(e.target.value)} />
         </div>
       </CardHeader>
       <CardContent>
@@ -116,7 +118,7 @@ function Komponenteunos() {
           
         </form>
       </CardContent>
-      <Button className="m-5 bg-pink-500 text-white">Završi</Button>
+      <Button className="m-5 bg-pink-500 text-white" onClick={handleSaveComponent}>Završi</Button>
                       
     </Card>
   );

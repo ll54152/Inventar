@@ -1,84 +1,63 @@
-
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
 import {
-    Command,
-    CommandDialog,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-    CommandSeparator,
-    CommandShortcut,
-  } from "@/components/ui/command"
-  import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-  export default function Experimenti() {
-  
-    return(
-        <div class="w-[1500px] h-[1000px] ">
-<Command class="w-[200px] h-[300px] ">
-  <CommandInput placeholder="Type a command or search..." />
-  <CommandList>
-    <CommandEmpty>No results found.</CommandEmpty>
-   
-    <CommandSeparator />
+export default function Experimenti() {
+  const [experiments, setExperiments] = useState([]);
+
+  useEffect(() => {
+    const storedExperiments = JSON.parse(localStorage.getItem("experiments")) || [];
+    setExperiments(storedExperiments);
+  }, []);
+
+  const handleDeleteExperiment = (id) => {
+    const updatedExperiments = experiments.filter((exp) => exp.id !== id);
+    setExperiments(updatedExperiments);
+    localStorage.setItem("experiments", JSON.stringify(updatedExperiments));}
     
-    <CommandItem> <Card className="hover:bg-pink-500 hover:text-white transition duration-300 w-[80%]">
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <span className="text-3xl font-bold">Prvi</span>
-                      </CardContent>
-                      
-        </Card >
-    </CommandItem>
+  return (
+    <div>
+      {/* Title Bar */}
+      <header className="fixed top-0 left-0 w-full bg-pink-500 text-white py-4 text-center text-2xl font-bold z-50">
+        Lista Eksperimenata
+      </header>
 
-    <CommandItem> <Card className="hover:bg-pink-500 hover:text-white transition duration-300 w-[80%]">
-        <CardContent className="flex aspect-square items-center justify-center p-6">
-        <span className="text-3xl font-bold">Drugi</span>
-        </CardContent>
-    </Card >
-    </CommandItem>
+      <div className="pt-20">
+        {experiments.map((experiment) => (
+          <div key={experiment.id} className="flex items-center justify-between bg-pink-200 p-5 mb-4 rounded-lg shadow-lg"
+          style={{ width: '80vw' }}>
+            <Link to={`/experimentiprimjer/${experiment.id}`} className="text-blue-500">
+              {experiment.name}
+            </Link>
+            <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => handleDeleteExperiment(experiment.id)}>
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
 
-    <CommandItem> <Card className="hover:bg-pink-500 hover:text-white transition duration-300 w-[80%]">
-        <CardContent className="flex aspect-square items-center justify-center p-6">
-        <span className="text-3xl font-bold">Treći</span>
-        </CardContent>  
-    </Card >
-    </CommandItem>
-
-    <CommandItem> <Card className="hover:bg-pink-500 hover:text-white transition duration-300 w-[80%]">
-        <CardContent className="flex aspect-square items-center justify-center p-6">
-        <span className="text-3xl font-bold">Četvrti</span>
-        </CardContent>
-    </Card >
-    </CommandItem>
-
-    <CommandItem> <Card className="hover:bg-pink-500 hover:text-white transition duration-300 w-[80%]">
-        <CardContent className="flex aspect-square items-center justify-center p-6">
-        <span className="text-3xl font-bold">Drugi1</span>
-        </CardContent>
-    </Card >
-    </CommandItem>
-
-    <CommandItem> <Card className="hover:bg-pink-500 hover:text-white transition duration-300 w-[80%]">
-        <CardContent className="flex aspect-square items-center justify-center p-6">
-        <span className="text-3xl font-bold">Drugi2</span>
-        </CardContent>
-    </Card >
-    </CommandItem>
+     
     
- 
-   
-  </CommandList>
-</Command>
-</div>
-
-    );
-  
+  );
 }

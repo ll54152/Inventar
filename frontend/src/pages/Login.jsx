@@ -75,12 +75,17 @@ function Login() {
                             />
                         </div>
                     </div>
-                    <Button type="submit" className="mt-4 bg-blue-500 text-white">Prijavi se</Button>
+                   
                 </form>
             </CardContent>
             <CardFooter className="flex justify-between">
+                 
                 <Link to="/home">
                     <Button className="m-5 bg-pink-500 text-white">Nazad</Button>
+                </Link>
+
+                <Link to="/mainpage">
+                <Button type="submit" className="m-5 bg-pink-500 text-white">Prijavi se</Button>
                 </Link>
             </CardFooter>
         </Card>

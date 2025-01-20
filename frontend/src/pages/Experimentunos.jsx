@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,22 @@ import { Button } from "@/components/ui/button";
 
 function Experimentunos() {
   const [komponente, setKomponente] = useState([]);
+  const [experimentName, setExperimentName] = useState("");
+  const navigate = useNavigate();
+
+  const handleSaveExperiment = () => {
+    const storedExperiments = JSON.parse(localStorage.getItem("experiments")) || [];
+    const newExperiment = {
+      id: storedExperiments.length + 1,
+      name: experimentName,
+    };
+
+    storedExperiments.push(newExperiment);
+    localStorage.setItem("experiments", JSON.stringify(storedExperiments));
+    alert("Novi eksperiment  je dodan");
+    navigate("/mainpage");
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     field: "",
@@ -83,7 +100,8 @@ function Experimentunos() {
             Naziv experimenta
           </CardTitle>
           <div className="flex flex-col space-y-1.5">
-            <Input id="name" placeholder="Unesite naziv eksperimenta" onChange={handleInputChange} />
+            <Input id="name" placeholder="Unesite naziv eksperimenta" value={experimentName}
+            onChange={(e) => setExperimentName(e.target.value)} />
           </div>
           <br />
         </CardHeader>
@@ -159,7 +177,7 @@ function Experimentunos() {
             </div>
 
             <CardFooter className="flex justify-between">
-              <Button type="submit" className="m-5 bg-pink-500 text-white">
+              <Button type="submit" className="m-5 bg-pink-500 text-white" onClick={handleSaveExperiment}>
                 Završi
               </Button>
             </CardFooter>
