@@ -12,8 +12,8 @@ public class Location {
     private Long id;
 
     private String adress;
-    private String room;
 
+    private String room;
     @OneToMany(mappedBy = "location")
     private List<Komponenta> komponenta;
 

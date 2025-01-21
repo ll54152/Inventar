@@ -1,5 +1,6 @@
 package com.inventar.backend.controller;
 
+import com.inventar.backend.DTO.LocationDTO;
 import com.inventar.backend.domain.*;
 import com.inventar.backend.service.*;
 import org.springframework.beans.factory.annotation.*;
@@ -28,5 +29,13 @@ public class LocationController {
 
         locationServiceJPA.save(location);
         return new ResponseEntity<>("Lokacija dodata uspešno", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<LocationDTO>> getAllLocations() {
+        List<LocationDTO> locationDTOs = locationServiceJPA.findAll().stream()
+                .map(location -> new LocationDTO(location.getId(), location.getAdress(), location.getRoom()))
+                .toList();
+        return new ResponseEntity<>(locationDTOs, HttpStatus.OK);
     }
 }
