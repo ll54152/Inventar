@@ -38,11 +38,24 @@ public class KomponentaController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Komponenta> getComponent(@PathVariable Long id) {
+    public ResponseEntity<KomponentaShowDTO> getComponent(@PathVariable Long id) {
         Komponenta komponenta = komponentaServiceJPA.findById(id);
         if (komponenta == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(komponenta, HttpStatus.OK);
+        KomponentaShowDTO komponentaShowDTO = new KomponentaShowDTO(
+                komponenta.getId(),
+                komponenta.getName(),
+                komponenta.getZpf(),
+                komponenta.getFer(),
+                komponenta.getQuantity(),
+                komponenta.getLocation().getAdress(),
+                komponenta.getLocation().getRoom(),
+                komponenta.getDescription(),
+                komponenta.getLogs(),
+                komponenta.getEksperimenti()
+        );
+
+        return new ResponseEntity<>(komponentaShowDTO, HttpStatus.OK);
     }
 }
