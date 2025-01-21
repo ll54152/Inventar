@@ -1,10 +1,12 @@
 package com.inventar.backend.service;
 
+import com.inventar.backend.DTO.KomponentaAddDTO;
 import com.inventar.backend.domain.*;
 import com.inventar.backend.repo.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import java.time.*;
 import java.util.*;
 
 @Service
@@ -16,20 +18,46 @@ public class KomponentaServiceJPA {
     @Autowired
     private LocationRepo locationRepo;
 
-    public Komponenta save(Komponenta komponenta) {
-        List<Location> locations = locationRepo.findAll();
-        for (Location location : locations) {
-            if (location.getAdress().equals(komponenta.getLocation().getAdress()) &&
-                    location.getRoom().equals(komponenta.getLocation().getRoom())) {
-                komponenta.setLocation(location);
-                break;
-            }
-        }
+    @Autowired
+    private EksperimentRepo eksperimentRepo;
 
-        return komponentaRepo.save(komponenta);
+    @Autowired
+    private LogRepo logRepo;
+
+    public Komponenta save(KomponentaAddDTO komponentaDTO) {
+        Location location = locationRepo.findById((long) komponentaDTO.getLocationID()).orElse(null);
+
+        List<Eksperiment> eksperimentList = new ArrayList<>();
+        eksperimentList.add(eksperimentRepo.findById((long) komponentaDTO.getEksperimentID()).orElse(null));
+
+        Komponenta komponenta = new Komponenta(
+                komponentaDTO.getName()
+                , komponentaDTO.getZpf()
+                , komponentaDTO.getFer()
+                , komponentaDTO.getQuantity()
+                , komponentaDTO.getDescription()
+                , location
+                , eksperimentList
+        );
+        Komponenta newKomponenta = komponentaRepo.save(komponenta);
+
+        List<Log> logList = new ArrayList<>();
+        Log newLog = new Log(newKomponenta, komponentaDTO.getLog(), LocalDateTime.now());
+        logList.add(logRepo.save(newLog));
+        newKomponenta.setLogs(logList);
+
+        return newKomponenta;
     }
 
     public Komponenta findByZpf(String zpf) {
         return komponentaRepo.findByZpf(zpf).orElse(null);
+    }
+
+    public Komponenta findById(Long id) {
+        return komponentaRepo.findById(id).orElse(null);
+    }
+
+    public List<Komponenta> findAll() {
+        return komponentaRepo.findAll();
     }
 }

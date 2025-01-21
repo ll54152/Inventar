@@ -42,8 +42,20 @@ public class Komponenta {
     public Komponenta() {
     }
 
+    public Komponenta(String name, String zpf, String fer, int quantity, Location location, String description, List<Log> logs, List<Eksperiment> eksperimenti) {
+        // Konstruktor sa logovima i eksperimentom ali bez files
+        this.name = name;
+        this.zpf = zpf;
+        this.fer = fer;
+        this.quantity = quantity;
+        this.location = location;
+        this.description = description;
+        this.logs = logs;
+        this.eksperimenti = eksperimenti;
+    }
+
     public Komponenta(String name, String zpf, String fer, int quantity, String description, Location location, List<Eksperiment> eksperimenti) {
-        // Konstruktor sa eksperimentom
+        // Konstruktor sa eksperimentom ali bez logova i files
         this.name = name;
         this.zpf = zpf;
         this.fer = fer;
@@ -54,7 +66,7 @@ public class Komponenta {
     }
 
     public Komponenta(String name, String zpf, String fer, int quantity, String description, Location location) {
-        // Konstruktor bez eksperimenta
+        // Konstruktor bez eksperimenta i logova i files
         this.name = name;
         this.zpf = zpf;
         this.fer = fer;

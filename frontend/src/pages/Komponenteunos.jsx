@@ -16,11 +16,13 @@ function Komponenteunos() {
     const [componentName, setComponentName] = useState("");
     const [internalCode, setInternalCode] = useState("");
     const [location, setLocation] = useState("");
+    const [experiment, setExperiment] = useState("");  // Novo stanje za eksperiment
     const [quantity, setQuantity] = useState("");
     const [description, setDescription] = useState("");
     const [notes, setNotes] = useState("");
-    const [status, setStatus] = useState("active"); // Default status
+    const [status, setStatus] = useState("active");
     const [locations, setLocations] = useState([]);
+    const [experiments, setExperiments] = useState([]);  // Stanje za eksperimente
     const [newLocationAddress, setNewLocationAddress] = useState("");
     const [newLocationRoom, setNewLocationRoom] = useState("");
     const [showAddLocation, setShowAddLocation] = useState(false);
@@ -41,18 +43,34 @@ function Komponenteunos() {
             }
         };
 
+        const fetchExperiments = async () => {  // Nova funkcija za dohvat eksperimenata
+            try {
+                const response = await fetch("http://localhost:8080/experiment/getAll");
+                if (response.ok) {
+                    const data = await response.json();
+                    setExperiments(data);
+                } else {
+                    console.error("Failed to fetch experiments");
+                }
+            } catch (error) {
+                console.error("Error fetching experiments:", error);
+            }
+        };
+
         fetchLocations();
+        fetchExperiments();  // Pozivamo funkciju za eksperimente
     }, []);
 
     const handleSaveComponent = async () => {
         const newComponent = {
             name: componentName,
-            zpf: internalCode, // Assuming this is the internal code
-            location,
+            zpf: internalCode,
+            locationID: location,
             quantity,
             description,
-            notes,
-            status,
+            log: notes,
+            fer: status,
+            eksperimentID: experiment,
         };
 
         try {
@@ -156,6 +174,24 @@ function Komponenteunos() {
                                 value={internalCode}
                                 onChange={(e) => setInternalCode(e.target.value)}
                             />
+                        </div>
+
+                        <div className="flex flex-col space-y-1.5">
+                            <CardTitle>Odaberite eksperiment</CardTitle>
+                            <Select value={experiment} onValueChange={setExperiment}>
+                                <SelectTrigger id="experiment">
+                                    <SelectValue placeholder="Odaberite eksperiment">
+                                        {experiment ? experiments.find(exp => exp.id === parseInt(experiment))?.name : "Odaberite eksperiment"}
+                                    </SelectValue>
+                                </SelectTrigger>
+                                <SelectContent position="popper">
+                                    {experiments.map((exp) => (
+                                        <SelectItem key={exp.id} value={exp.id.toString()}>
+                                            {exp.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
 
                         <div className="flex flex-col space-y-1.5">
