@@ -22,7 +22,7 @@ public class KomponentaServiceJPA {
     private EksperimentRepo eksperimentRepo;
 
     @Autowired
-    private LogRepo logRepo;
+    private LogServiceJPA logServiceJPA;
 
     public Komponenta save(KomponentaAddDTO komponentaDTO) {
         Location location = locationRepo.findById((long) komponentaDTO.getLocationID()).orElse(null);
@@ -43,7 +43,7 @@ public class KomponentaServiceJPA {
 
         List<Log> logList = new ArrayList<>();
         Log newLog = new Log(newKomponenta, komponentaDTO.getLog(), LocalDateTime.now());
-        logList.add(logRepo.save(newLog));
+        logList.add(logServiceJPA.save(newLog));
         newKomponenta.setLogs(logList);
 
         return newKomponenta;

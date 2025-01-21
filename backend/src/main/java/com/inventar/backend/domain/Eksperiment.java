@@ -40,6 +40,27 @@ public class Eksperiment {
         this.materials = materials;
     }
 
+    public Eksperiment(String name, String field, String subject, String description, String materials, List<Komponenta> komponente, List<Log> logs) {
+        this.name = name;
+        this.field = field;
+        this.subject = subject;
+        this.description = description;
+        this.materials = materials;
+        this.komponente = komponente;
+        this.logs = logs;
+    }
+
+
+
+    public Eksperiment(String name, String field, String subject, String description, String materials, List<Log> logs) {
+        this.name = name;
+        this.field = field;
+        this.subject = subject;
+        this.description = description;
+        this.materials = materials;
+        this.logs = logs;
+    }
+
     public Eksperiment() {
 
     }
