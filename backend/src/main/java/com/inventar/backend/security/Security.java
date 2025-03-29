@@ -5,7 +5,7 @@ import org.springframework.security.crypto.bcrypt.*;
 
 
 @Configuration
-public class Security {
+public class Security implements WebMvcConfigurer {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
