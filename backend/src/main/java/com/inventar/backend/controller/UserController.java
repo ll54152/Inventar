@@ -22,21 +22,21 @@ public class UserController {
 
         if (oldUser != null) {
             String token = userServiceJPA.verifyLogin(user);
-            if (token != null && !token.equals("Failed to authenticate")) {
-                return new ResponseEntity<>("Login successful. Token: " + token, HttpStatus.OK);
+            if (token != null) {
+                return new ResponseEntity<>("Prijava uspješna! Token: " + token, HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>("Pogrešni podatci", HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         User oldUser = userServiceJPA.findByEmail(user.getEmail());
         if (oldUser != null) {
-            return new ResponseEntity<>("Korisnik već postoji", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Korisnik već postoji!", HttpStatus.BAD_REQUEST);
         }
         userServiceJPA.register(user);
-        return new ResponseEntity<>("Korisnik registered successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("Korisnik registriran uspješno!", HttpStatus.CREATED);
     }
 
     @PostMapping("/registerDeprecated")

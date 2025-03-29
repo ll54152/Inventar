@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.stereotype.*;
 
@@ -45,13 +46,20 @@ public class UserServiceJPA {
     }
 
     public String verifyLogin(User user) {
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 
-        if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(user.getEmail());
-        } else {
-            return "Failed to authenticate";
+        try {
+            Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+
+            if (authentication.isAuthenticated()) {
+                return jwtService.generateToken(user.getEmail());
+            } else {
+                return null;
+            }
+
+        } catch (AuthenticationException e) {
+            return null;
         }
+
     }
 
     public boolean loginDeprecated(String password, User oldUser) {
