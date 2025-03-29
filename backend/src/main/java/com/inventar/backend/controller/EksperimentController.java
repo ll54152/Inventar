@@ -11,7 +11,7 @@ import java.util.*;
 
 //ToDo: Cors za testiranje
 @RestController
-@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.18.27:5173"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.18.27:5173", "http://localhost:8080"})
 @RequestMapping("/experiment")
 public class EksperimentController {
 
