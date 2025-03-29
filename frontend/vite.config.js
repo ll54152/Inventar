@@ -10,4 +10,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+  host: "0.0.0.0", // Omogućava pristup sa drugih uređaja u mreži
+  port: 5173, // Port frontend aplikacije
+  proxy: {
+    "/component": {
+      target: "http://localhost:8080", // Pošto backend i frontend rade na istom računalu
+      changeOrigin: true,
+      secure: false,
+      },
+    },
+  },
 })
