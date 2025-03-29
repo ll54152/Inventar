@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 //ToDo: Cors za testiranje
 @RestController
-@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.18.27:5173", "http://localhost:8080", "192.168.18.5", "http://192.168.18.5"})
+@CrossOrigin(origins = "*")
 @RequestMapping("/user")
 public class UserController {
 

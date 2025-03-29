@@ -11,7 +11,7 @@ import java.util.*;
 
 //ToDo: Cors za testiranje
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/experiment")
 public class EksperimentController {
 
