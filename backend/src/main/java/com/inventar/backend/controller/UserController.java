@@ -15,8 +15,32 @@ public class UserController {
     @Autowired
     private UserServiceJPA userServiceJPA;
 
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody User user) {
+        User oldUser = userServiceJPA.findByEmail(user.getEmail());
+
+        if (oldUser != null) {
+            String token = userServiceJPA.verifyLogin(user);
+            if (token != null && !token.equals("Failed to authenticate")) {
+                return new ResponseEntity<>("Login successful. Token: " + token, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
+        User oldUser = userServiceJPA.findByEmail(user.getEmail());
+        if (oldUser != null) {
+            return new ResponseEntity<>("Korisnik već postoji", HttpStatus.BAD_REQUEST);
+        }
+        userServiceJPA.register(user);
+        return new ResponseEntity<>("Korisnik registered successfully", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/registerDeprecated")
+    public ResponseEntity<String> registerUserDeprecated(@RequestBody User user) {
         User oldUser = userServiceJPA.findByEmail(user.getEmail());
         if (oldUser != null) {
             return new ResponseEntity<>("Korisnik već postoji", HttpStatus.BAD_REQUEST);
@@ -25,14 +49,15 @@ public class UserController {
         return new ResponseEntity<>("Korisnik registered successfully", HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user) {
+    @PostMapping("/loginDeprecated")
+    public ResponseEntity<String> loginUserDeprecated(@RequestBody User user) {
         User oldUser = userServiceJPA.findByEmail(user.getEmail());
         if (oldUser != null) {
-            if (userServiceJPA.loginDeprecated(user.getEmail(), oldUser)) {
+            if (userServiceJPA.loginDeprecated(user.getPassword(), oldUser)) {
                 return new ResponseEntity<>("Login successful", HttpStatus.OK);
             }
         }
         return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
     }
+
 }

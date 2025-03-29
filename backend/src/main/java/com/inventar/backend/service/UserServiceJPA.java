@@ -44,13 +44,13 @@ public class UserServiceJPA {
         return userRepo.findByEmail(email).orElse(null);
     }
 
-    public String login(User user) {
+    public String verifyLogin(User user) {
         Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 
         if (authentication.isAuthenticated()) {
             return jwtService.generateToken(user.getEmail());
         } else {
-            return "fail";
+            return "Failed to authenticate";
         }
     }
 
