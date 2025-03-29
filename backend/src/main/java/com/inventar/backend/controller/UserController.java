@@ -21,7 +21,7 @@ public class UserController {
         if (oldUser != null) {
             return new ResponseEntity<>("Korisnik već postoji", HttpStatus.BAD_REQUEST);
         }
-        userServiceJPA.save(user);
+        userServiceJPA.registerDeprecated(user);
         return new ResponseEntity<>("Korisnik registered successfully", HttpStatus.CREATED);
     }
 
@@ -29,7 +29,7 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         User oldUser = userServiceJPA.findByEmail(user.getEmail());
         if (oldUser != null) {
-            if (userServiceJPA.checkPassword(user.getPassword(), oldUser)) {
+            if (userServiceJPA.loginDeprecated(user.getEmail(), oldUser)) {
                 return new ResponseEntity<>("Login successful", HttpStatus.OK);
             }
         }
